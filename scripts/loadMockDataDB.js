@@ -1,7 +1,7 @@
 "use strict";
 
 // conexion a la base de datos
-const dbConnection = require("../services/connectorMongoDB");
+const dbConnection = require("../services/connectionBD_Mongo");
 
 // modelo de agentes
 const Advertisement = require("../models/Advertisement");
