@@ -4,10 +4,11 @@ const express = require("express");
 const router = express.Router();
 const advertisementController = require("../../../controllers/advertisementController");
 
-router.get("/list", advertisementController.list);
+router.get("/", advertisementController.list);
+router.get("/tags-list", advertisementController.tagsList);
 router.post("/add", advertisementController.add);
 router.post("/query", advertisementController.query);
-router.post("/update", advertisementController.update);
-router.post("/remove", advertisementController.remove);
+router.put("/update", advertisementController.update);
+router.delete("/remove", advertisementController.remove);
 
 module.exports = router;

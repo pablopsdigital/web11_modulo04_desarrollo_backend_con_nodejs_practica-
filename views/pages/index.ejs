@@ -35,43 +35,58 @@
 
     <!--Start Card Section-->
     <section>
-      <h2 class="title-list">New Products</h2>
-      <ul class="main-cards-list">
-        <% advertisementList.forEach(function(advertisement) { %>
-          <li class="card">
-            <a href="#" class="card-link" target="_blank">
-              <img src="./images/advertisements/<%=advertisement.photo%>"
-                alt="<%=advertisement.photo%>">
-              <div class="card-content">
+      <% if(advertisementList.length> 0){ %>
+        <h2 class="title-list">New Products</h2>
+        <ul class="main-cards-list">
 
-                <p class="card-price">
-                  <%= advertisement.price %><span> EUR</span>
-                </p>
-                <h2 class="card-title">
-                  <%= advertisement.name %>
-                </h2>
+          <!-- Advertisement list bucle -->
+          <% advertisementList.forEach(function(advertisement) { %>
+            <li class="card">
+              <a href="#" class="card-link" target="_blank">
+                <img src="./images/advertisements/<%=advertisement.photo%>"
+                  alt="<%=advertisement.photo%>">
+                <div class="card-content">
 
-                <div class="info-details">
-                  <p
-                    class="advertisement-type <%= advertisement.sale ? 'background-sale' : 'background-purchase' %>">
-                    <%= advertisement.sale ? 'Sale' : 'Purchase' %>
+                  <p class="card-price">
+                    <%= advertisement.price %><span> EUR</span>
                   </p>
-                  <p class="date"> Publication date:
-                    <%= advertisement.createdAt %>
-                  </p>
+                  <h2 class="card-title">
+                    <%= advertisement.name %>
+                  </h2>
+
+                  <div class="info-details">
+                    <p
+                      class="advertisement-type <%= advertisement.sale ? 'background-sale' : 'background-purchase' %>">
+                      <%= advertisement.sale ? 'Sale' : 'Purchase' %>
+                    </p>
+                    <p class="date"> Publication date:
+                      <%= advertisement.createdAt.getDate()%>/
+                        <%= advertisement.createdAt.getMonth()%>/
+                          <%= advertisement.createdAt.getFullYear()%>
+                    </p>
+                  </div>
+                  <div class="tags-details">
+                    <!-- <%advertisement.tags[i];%> -->
+                    <% for (var i=0; i < advertisement.tags.length; i++) { %>
+                      <a href="<%= advertisement.tags[i] %>" class="tag" target="_blank">
+                        • <%= advertisement.tags[i] %>
+                      </a>
+                      <% } %>
+                  </div>
                 </div>
-                <div class="tags-details">
-                  <% for (var i=0; i < advertisement.tags.length; i++) { %>
-                    <a href="<%= advertisement.tags[i] %>" class="tag" target="_blank">
-                      <%= advertisement.tags[i] %>
-                    </a>
-                    <% } %>
-                </div>
-              </div>
-            </a>
-          </li>
-          <% }); %>
-      </ul>
+              </a>
+            </li>
+            <% }); %>
+        </ul>
+
+        <!-- No results -->
+        <% } else{ %>
+          <div class="no-results">
+            <p class="emogi">😥</pc>
+            <h3>No ads have been found!!</h3>
+            <p>Try changing your search filters</p>
+          </div>
+          <% } %>
     </section>
     <!--End Card Section-->
 
