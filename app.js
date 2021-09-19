@@ -4,6 +4,9 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+// const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express"),
+  swaggerDocs = require("./swagger.json");
 
 //Create server express
 var app = express();
@@ -18,9 +21,23 @@ app.set("view engine", "ejs");
 // General functions server setup
 app.use(logger("dev"));
 app.use(express.json());
+swagger = require("swagger-node-express");
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+//==================================================================
+//Configura Swagger for documentation API
+//==================================================================
+app.use(
+  "/api/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocs, {
+    explorer: true,
+    swaggerOptions: {},
+  })
+);
+swagger.setAppHandler(app);
 
 //==================================================================
 //Routes

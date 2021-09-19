@@ -86,23 +86,42 @@ const list = async (req, res, next) => {
   }
 };
 
+//Query a advertisement for id whit get
+const getIDAdvertisement = async (req, res, next) => {
+  try {
+    const _id = req.params.advertisementId;
+    const resultQuery = await Advertisement.findOne({ _id });
+
+    if (!resultQuery) {
+      res.status(404).json({
+        error: `The record with id: ${_id} does not exist`,
+      });
+      return;
+    }
+    res.status(200).json({ result: resultQuery });
+  } catch (err) {
+    res.status(500).send({
+      message: "An error occurred while viewing the advertisement.",
+    });
+    next(err);
+  }
+};
+
 //List tags all advertisement
 const tagsList = async (req, res, next) => {
   try {
-    // Return list attaking the enum of the Schema
-    // const TempAdvertisement = await require("mongoose")
-    //   .model("Advertisement")
-    //   .schema.path("tags").enumValues;
-
     const advertisementList = await Advertisement.find();
 
-    //Return only the tags from each object
-    var listAllTags = advertisementList.flatMap(function (advertisement) {
-      return advertisement.tags;
-    });
+    let finalList = await [
+      //Delete duplicates array tags
+      ...new Set(
+        //Return only the tags from each object
+        advertisementList.flatMap(function (advertisement) {
+          return advertisement.tags;
+        })
+      ),
+    ];
 
-    //Delete duplicates array tags
-    let finalList = [...new Set(listAllTags)];
     res.status(200).json({ results: finalList });
   } catch (err) {
     res.status(500).send({
@@ -200,6 +219,7 @@ const remove = async (req, res, next) => {
 
 module.exports = {
   add,
+  getIDAdvertisement,
   tagsList,
   query,
   list,

@@ -17,7 +17,7 @@ const advertisementSchema = mongoose.Schema(
     tags: {
       type: [String],
       enum: ["uncategorized", "work", "lifestyle", "motor", "mobile"],
-      required: [true, "User phone number required"],
+      required: [true, "Tag required"],
       default: ["uncategorized"],
     },
   },

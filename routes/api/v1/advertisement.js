@@ -5,7 +5,8 @@ const router = express.Router();
 const advertisementController = require("../../../controllers/advertisementController");
 
 router.get("/", advertisementController.list);
-router.get("/tags-list", advertisementController.tagsList);
+router.get("/:advertisementId", advertisementController.getIDAdvertisement);
+router.get("/tags/list", advertisementController.tagsList);
 router.post("/add", advertisementController.add);
 router.post("/query", advertisementController.query);
 router.put("/update", advertisementController.update);
