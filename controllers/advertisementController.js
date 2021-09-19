@@ -3,7 +3,7 @@
 const Advertisement = require("../models/Advertisement");
 
 //List advertisement
-const list = async (req, res, next) => {
+const getAllAdvertisements = async (req, res, next) => {
   try {
     const name = req.query.name;
     const sale = req.query.sale;
@@ -87,7 +87,7 @@ const list = async (req, res, next) => {
 };
 
 //Query a advertisement for id whit get
-const getIDAdvertisement = async (req, res, next) => {
+const getOneAdvertisement = async (req, res, next) => {
   try {
     const _id = req.params.advertisementId;
     const resultQuery = await Advertisement.findOne({ _id });
@@ -108,7 +108,7 @@ const getIDAdvertisement = async (req, res, next) => {
 };
 
 //List tags all advertisement
-const tagsList = async (req, res, next) => {
+const getAllTagsAdvertisements = async (req, res, next) => {
   try {
     const advertisementList = await Advertisement.find();
 
@@ -132,7 +132,7 @@ const tagsList = async (req, res, next) => {
 };
 
 //Add a advertisement
-const add = async (req, res, next) => {
+const createAdvertisement = async (req, res, next) => {
   try {
     const advertisementData = req.body;
     const advertisementCreated = await new Advertisement(
@@ -148,29 +148,8 @@ const add = async (req, res, next) => {
   }
 };
 
-//Query a advertisement
-const query = async (req, res, next) => {
-  try {
-    const _id = req.query._id;
-    const resultQuery = await Advertisement.findOne({ _id });
-
-    if (!resultQuery) {
-      res.status(404).json({
-        error: `The record with id: ${_id} does not exist`,
-      });
-      return;
-    }
-    res.status(200).json({ result: resultQuery });
-  } catch (err) {
-    res.status(500).send({
-      message: "An error occurred while viewing the advertisement.",
-    });
-    next(err);
-  }
-};
-
 //Update advertisement
-const update = async (req, res, next) => {
+const updateAdvertisement = async (req, res, next) => {
   try {
     const _id = req.body._id;
     const advertisementData = req.body;
@@ -197,7 +176,7 @@ const update = async (req, res, next) => {
 };
 
 //Remove advertisement
-const remove = async (req, res, next) => {
+const deleteAdvertisement = async (req, res, next) => {
   try {
     const _id = req.body._id;
     const resultQuery = await Advertisement.findByIdAndDelete({ _id });
@@ -218,11 +197,10 @@ const remove = async (req, res, next) => {
 };
 
 module.exports = {
-  add,
-  getIDAdvertisement,
-  tagsList,
-  query,
-  list,
-  update,
-  remove,
+  getAllAdvertisements,
+  getOneAdvertisement,
+  getAllTagsAdvertisements,
+  createAdvertisement,
+  updateAdvertisement,
+  deleteAdvertisement,
 };

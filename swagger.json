@@ -182,7 +182,7 @@
         }
       }
     },
-    "/advertisement/remove": {
+    "/advertisement/delete": {
       "delete": {
         "summary": "Delete advertisement with given ID",
         "tags": [

@@ -4,7 +4,7 @@ const Advertisement = require("../models/Advertisement");
 const advertisementController = require("./advertisementController");
 
 //List advertisement
-const listView = async (req, res, next) => {
+const getAllAdvertisementsInView = async (req, res, next) => {
   try {
     //Req data
     const name = req.query.name;
@@ -89,4 +89,4 @@ const listView = async (req, res, next) => {
   }
 };
 
-module.exports = { listView };
+module.exports = { getAllAdvertisementsInView };
